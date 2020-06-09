@@ -20,28 +20,28 @@
 > API endpoints
 
 GET  /:id
-// responds with an HTML page displaying host information for the property with matching listingId or headline
+- responds with an HTML page displaying host information for the property with matching listingId or headline
 
 GET  /hosts/:id
-// returns host data based on the host id
+- returns host data based on the host id
 
 GET  /listings/:id/hosts
-// returns host data based on the listing id
+- returns host data based on the listing id
 
 GET  /hosts
-// returns all records
+- returns all records
 
 GET  /hosts/:id/co-hosts
-// returns cohost data for cohost component if a host has cohosts
+- returns cohost data for cohost component if a host has cohosts
 
 POST  /hosts
-// creates a new host
+- creates a new host
 
 PUT  /hosts/:id
-// updates host data for the host with matching host id
+- updates host data for the host with matching host id
 
 DELETE  /hosts/:id
-// deletes the record from database that belongs to the host with matching host id
+- deletes the record from database that belongs to the host with matching host id
 
 
 ## Requirements
