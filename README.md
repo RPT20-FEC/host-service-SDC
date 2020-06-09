@@ -1,6 +1,6 @@
 # Host service
 
-> This service clones Airbnb host module for property description. It is part of Front-end capstone project at Hack Reactor.
+> This service clones Airbnb host module for property/ listing page. It is a part of Front-end capstone project at Hack Reactor.
 
 ## Related Projects
 
