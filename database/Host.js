@@ -27,4 +27,66 @@ const hostSchema = new mongoose.Schema({
 
 const Host = mongoose.model('Host', hostSchema);
 
-module.exports = Host;
+const getHostData = (id, callback) => {
+  let query = id ? {id: id} : {};
+  Host.find(query).exec((err, data) => {
+    if (err) {
+      return console.error(err);
+    }
+    callback(data);
+  });
+}
+
+const getCoHostData = (id, callback) => {
+  Host.find({id: id}).exec((err, data) => {
+    if (err) {
+      return console.error(err);
+    }
+    Host.find().where('id').in(data[0].coHost).select('name avatarUrl id superhost').exec((err, records) => {
+      if (err) {
+        return console.error(err);
+      }
+      callback(records);
+    })
+  })
+}
+
+const createNewHost = (hostData, callback) => {
+  var host = new Host(hostData);
+  host.save(function (err) {
+    if (err) {
+      return console.error(err);
+    }
+    callback();
+  });
+}
+
+const updateHost = (id, data) => {
+  Host.update({ id: id }, { data });
+}
+
+const deleteHost = (id, callback) => {
+  Host.deleteOne({ id: id }, function (err) {
+    if (err) {
+      return console.error(err);
+    }
+    callback();
+  } );
+}
+
+const seedDatabase = (data) => {
+  Host.remove({})
+    .then(()=> {
+      console.log(data);
+      Host.create(data)
+        .then(() => db.close())
+        .catch(err => console.log(err));
+    })
+}
+
+module.exports.getHostData = getHostData;
+module.exports.getCoHostData = getCoHostData;
+module.exports.seedDatabase = seedDatabase;
+module.exports.createNewHost = createNewHost;
+module.exports.updateHost = updateHost;
+module.exports.deleteHost = deleteHost;

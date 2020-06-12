@@ -1,5 +1,5 @@
 const db  = require('./index.js');
-const Host = require('./Host.js');
+const {seedDatabase} = require('./Host.js');
 var moment = require('moment');
 
 const LoremIpsum = require("lorem-ipsum").LoremIpsum;
@@ -153,12 +153,7 @@ const insertSampleData = function() {
     }
     sampleData.push(temp);
   }
-  Host.remove({})
-    .then(()=> {
-      Host.create(sampleData)
-        .then(() => db.close())
-        .catch(err => console.log(err));
-    })
+  seedDatabase(sampleData);
 };
 
 insertSampleData();
