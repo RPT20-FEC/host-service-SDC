@@ -6,12 +6,14 @@ const path = require('path');
 const axios = require('axios');
 
 const {
-  getHostData,
   getCoHostData,
   createNewHost,
   updateHost,
   deleteHost
-}  = require('../database/Host.js');
+}  = require('../database/postgres.js');
+const {
+  getHostData
+}  = require('../database/postgres.js');
 const sampleData = require('../database/sampleData.js');
 
 const app = express();
@@ -76,19 +78,20 @@ app.get('/listings/:id/hosts', function(req, res, next = () => {}) {
   });
 });
 
-app.post('/hosts', function(req, res, next = () => {}) {
+app.post('/hosts', function(req, res) {
 
-  createNewHost(req.body, () => {
-    res.status(200);
-    next();
+  createNewHost(req.body, (data) => {
+    res.status(200).json(data);
   })
 });
 
 app.put('/hosts/:id', function(req, res) {
   console.log(req.body);
 
-  updateHost(req.params.id, req.body);
-  res.sendStatus(200);
+  updateHost(req.params.id, req.body, (data) => {
+    res.status(200).json(data);
+  });
+
 
 });
 
