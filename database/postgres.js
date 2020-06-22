@@ -15,7 +15,7 @@ const getHostData = (id, callback) => {
 
 const getCoHostData = (id, callback) => {
 
-  pool.query('SELECT string_agg(cohostId::text, ',') FROM cohosts WHERE userId = $1', [id], (error, cohostId) => {
+  pool.query('SELECT cohostId FROM cohosts WHERE hostId = $1', [id], (error, cohostId) => {
     if (error) {
       return console.error(error);
     }
@@ -87,9 +87,9 @@ const deleteHost = (id, callback) => {
   });
 }
 
-const seedDatabase = () => {
+const seedDatabase = (fileName) => {
 
-  pool.query(`\COPY hosts FROM '/Users/Anush/HR/sdc/data.csv' DELIMITER ',' CSV HEADER;`, (error, data) => {
+  pool.query(`COPY hosts FROM '${fileName}' DELIMITER ',' CSV HEADER;`, (error, data) => {
     if (error) {
       return console.error(error);
     }

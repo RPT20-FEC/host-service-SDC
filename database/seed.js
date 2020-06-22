@@ -128,15 +128,42 @@ var randomLocation = ['San Jose, CA', 'New Deli, India', 'Moscow, Russia', 'Pari
 var randomLanguage = ['English', 'Chinese', 'Spanish', 'Hindi', 'Arabic', 'PORTUGUESE', 'Russian'];
 var randomResponse = ['within an hour', 'within a day', 'within a minute', 'within a week' ,'within 2 hours'];
 
+const seedCohostData = () => {
+  let writer = csvWriter();
+  writer.pipe(fs.createWriteStream(`cohosts.csv`));
+  for (let i = 0; i < 1000000; i++) {
+
+    writer.write({
+      id: i,
+      hostId: Math.round(Math.random() * 10000000),
+      cohostId: Math.round(Math.random() * 10000000),
+    });
+  }
+  writer.end(err => {
+    console.log(`ended stream`);
+    if (err) {
+      console.log(err);
+    } else {
+      pool.query(`COPY cohosts FROM '/Users/Anush/HR/sdc/cohosts.csv' DELIMITER ',' CSV HEADER;`, (error, data) => {
+        if (error) {
+          return console.error(error);
+        }
+        console.log('successfully seeded the db cohosts table')
+      });
+      }
+  });
+}
+
 const insertSampleData = () => {
   //seedDatabase();
-  var file = 0;
+  let file = 0;
 
   let hostId = 0;
-  for (var x = 0; x < 7; x++) {
-    var writer = csvWriter();
+
+  for (let x = 0; x < 7; x++) {
+    let writer = csvWriter();
     writer.pipe(fs.createWriteStream(`data${x}.csv`));
-    for (var i = 0; i < 1500000; i++) {
+    for (let i = 0; i < 1500000; i++) {
 
       writer.write({
         id: hostId++,
@@ -162,12 +189,7 @@ const insertSampleData = () => {
       if (err) {
         console.log(err);
       } else {
-        pool.query(`\COPY hosts FROM '/Users/Anush/HR/sdc/data${file++}.csv' DELIMITER ',' CSV HEADER;`, (error, data) => {
-          if (error) {
-            return console.error(error);
-          }
-          console.log('successfully seeded the db')
-        });
+        seedDatabase(`/Users/Anush/HR/sdc/data${file++}.csv`);
         }
     });
 
@@ -177,7 +199,8 @@ const insertSampleData = () => {
 
 };
 
-insertSampleData();
+//insertSampleData();
+seedCohostData();
 
 module.exports = sampleData;
 
