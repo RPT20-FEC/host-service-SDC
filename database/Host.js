@@ -13,11 +13,6 @@ const hostSchema = new mongoose.Schema({
   duringStay: String,
   description: String,
   location: String,
-  provided: {
-    email: {type: Boolean, default: false},
-    phone: {type: Boolean, default: false},
-    id: {type: Boolean, default: false}
-  },
   joined_at: Date,
   languages: String,
   responseTime: String,

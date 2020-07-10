@@ -6,14 +6,15 @@ const path = require('path');
 const axios = require('axios');
 
 const {
-  getCoHostData,
+  //getCoHostData,
+  getHostData,
   createNewHost,
   updateHost,
   deleteHost
-}  = require('../database/postgres.js');
-const {
-  getHostData
-}  = require('../database/postgres.js');
+}  = require('../database/dynamoQueries.js');
+// const {
+//   getHostData
+// }  = require('../database/postgres.js');
 const sampleData = require('../database/sampleData.js');
 
 const app = express();
