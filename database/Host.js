@@ -75,13 +75,12 @@ const deleteHost = (id, callback) => {
 }
 
 const seedDatabase = (data) => {
-  Host.remove({})
-    .then(()=> {
-      console.log(data);
-      Host.create(data)
-        .then(() => db.close())
+  // Host.remove({})
+  //   .then(()=> {
+      Host.insertMany(data)
+        .then(() => console.log('test'))
         .catch(err => console.log(err));
-    })
+    //})
 }
 
 module.exports.getHostData = getHostData;
