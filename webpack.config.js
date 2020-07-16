@@ -4,6 +4,9 @@ const path = require('path');
 const SRC_DIR = path.join(__dirname, '/client/src');
 const DIST_DIR = path.join(__dirname, '/client/dist');
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
+const zlib = require('zlib');
+const CompressionPlugin = require('compression-webpack-plugin');
+
 
 module.exports = {
   entry: `${SRC_DIR}/index.jsx`,
@@ -55,6 +58,18 @@ module.exports = {
     //new HtmlWebpackPlugin({
     //   title: 'Production',
     // }),
+    new CompressionPlugin({
+      filename: '[path].br[query]',
+      algorithm: 'brotliCompress',
+      test: /\.(js|css|html|svg)$/,
+      compressionOptions: {
+        // zlib’s `level` option matches Brotli’s `BROTLI_PARAM_QUALITY` option.
+        level: 11,
+      },
+      threshold: 10240,
+      minRatio: 0.8,
+      deleteOriginalAssets: false,
+    }),
 ]
 
 };

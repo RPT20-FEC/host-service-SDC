@@ -32,18 +32,20 @@ const getCoHostData = (id, callback) => {
 const createNewHost = (hostData, callback) => {
 
   const {
-    name, reviews, verified, superhost, duringStay, description, location, joined_at, languages, responseTime, responseRate, avatarUrl
+    name, reviews, verified, superhost, duringstay, description, location, joined_at, languages, responsetime, responserate, avatarurl
   } = hostData;
 
   pool.query(
-    "INSERT INTO hosts (name, reviews, verified, superhost, duringStay, description, location, joined_at, languages, responseTime, responseRate, avatarUrl) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING *;",
+    "INSERT INTO hosts (name, reviews, verified, superhost, duringstay, description, location, joined_at, languages, responsetime, responserate, avatarurl) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING *;",
     [
-      name, reviews, verified, superhost, duringStay, description, location, joined_at, languages, responseTime, responseRate, avatarUrl
+      name, reviews, verified, superhost, duringstay, description, location, joined_at, languages, responsetime, responserate, avatarurl
     ],
     (error, results) => {
       if (error) {
+        //console.log("not sure what happened ", reviews, typeof reviews, typeof responserate)
         return console.error(error);
       }
+      //console.log("not sure what happened ", reviews, typeof reviews, typeof responserate)
       callback(results.rows);
     }
   );

@@ -23,13 +23,9 @@ coverage
 # Compiled Dirs (http://nodejs.org/api/addons.html)
 build/
 dist/
-.env
-data0.csv
-data1.csv
-data2.csv
-data3.csv
-data4.csv
-data5.csv
-data6.csv
-data7.csv
+cohosts.csv
+hosts.csv
 
+# keys
+.env
+newrelic.js

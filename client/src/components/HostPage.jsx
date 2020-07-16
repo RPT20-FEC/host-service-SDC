@@ -18,7 +18,7 @@ const HostPage = (props) => {
 
     console.log('here is host id from params, ', id)
     $.ajax({
-      url: 'http://54.215.154.186/hosts/' + id,
+      url: 'http://localhost:3001/hosts/' + id,
       type: 'GET',
       success: (data) => {
         setHost(data[0]);
@@ -37,21 +37,21 @@ const HostPage = (props) => {
         <img className={hostStyles.imageProfile}  src={host.avatarUrl} />
 
         {host.superhost &&
-          <img className={hostStyles.iconProfile} src='https://host-service.s3-us-west-1.amazonaws.com/icon.png' />
+          <img rel="preconnect" className={hostStyles.iconProfile} src='https://host-service.s3-us-west-1.amazonaws.com/icon.png' />
         }
       </div>
 
       <div className={hostStyles.statsData} >
-        <img className={hostStyles.star} src='https://host-service.s3-us-west-1.amazonaws.com/profile-reviews.png' /> {host.reviews} Reviews
+        <img rel="preconnect" className={hostStyles.star} src='https://host-service.s3-us-west-1.amazonaws.com/profile-reviews.png' /> {host.reviews} Reviews
       </div>
       {host.verified &&
         <div className={hostStyles.statsData} >
-          <img className={hostStyles.check} src='https://host-service.s3-us-west-1.amazonaws.com/profile-ver.PNG' /> Verified
+          <img rel="preconnect" className={hostStyles.check} src='https://host-service.s3-us-west-1.amazonaws.com/profile-ver.PNG' /> Verified
         </div>
       }
       {host.superhost &&
         <div className={hostStyles.statsData} >
-          <img className={hostStyles.superhostStats} src='https://host-service.s3-us-west-1.amazonaws.com/icon-super-profile.png' /> Superhost
+          <img rel="preconnect" className={hostStyles.superhostStats} src='https://host-service.s3-us-west-1.amazonaws.com/icon-super-profile.png' /> Superhost
         </div>
       }
 
@@ -59,10 +59,10 @@ const HostPage = (props) => {
     <div className={hostStyles.descDetails} >
       <div className={hostStyles.name}  >Hi, I'm {host.name}</div>
       <div className={styles.date}  >Joined in {moment(host.joined_at).format("MMMM YYYY")}</div>
-      <img className={hostStyles.quote} src='https://host-service.s3-us-west-1.amazonaws.com/quote.jpg' />
+      <img rel="preconnect" className={hostStyles.quote} src='https://host-service.s3-us-west-1.amazonaws.com/quote.jpg' />
       <div className={styles.descText}>{host.description} </div>
-      <div className='lang'><img src='https://host-service.s3-us-west-1.amazonaws.com/lang-icon.PNG'/>   Speaks {host.languages}</div>
-      <div className='location'><img src='https://host-service.s3-us-west-1.amazonaws.com/loc--icon.png'/>   Lives in {host.location}</div>
+      <div rel="preconnect" className='lang'><img src='https://host-service.s3-us-west-1.amazonaws.com/lang-icon.PNG'/>   Speaks {host.languages}</div>
+      <div rel="preconnect" className='location'><img src='https://host-service.s3-us-west-1.amazonaws.com/loc--icon.png'/>   Lives in {host.location}</div>
     </div>
   </div>
   )

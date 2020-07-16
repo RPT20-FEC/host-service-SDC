@@ -22,32 +22,38 @@ const PORT = process.env.PORT;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-app.use(express.static(__dirname + '/../client/dist'));
+
+app.use(express.static(
+  __dirname + '/../client/dist',
+  {
+      setHeaders: (res) => {
+          res.setHeader('Content-Encoding', 'br');
+      }
+  }
+))
 
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
+  res.header('Access-Control-Allow-Origin', '*');
   next();
 });
 
+
 //returns host data based on the id
-app.get('/hosts/:id', function(req, res, next = () => {}) {
+app.get('/hosts/:id', function(req, res) {
+  //console.log(req.url);
   getHostData(req.params.id, (data) => {
     res.status(200).json(data);
-    next();
+    res.end();
 
   })
 });
 
 //returns all host data
-app.get('/hosts', function(req, res, next = () => {}) {
+app.get('/hosts', function(req, res) {
 
   getHostData(req.params.id, (data) => {
     res.status(200).json(data);
-    next();
+    res.end();
 
   })
 });
@@ -57,31 +63,40 @@ app.get('/hosts/:id/co-hosts', (req, res) => {
 
   getCoHostData(req.params.id, (data) => {
     res.status(200).json(data);
+    res.end();
 
   })
 });
 
 
-app.get('/listings/:id/hosts', function(req, res, next = () => {}) {
+app.get('/listings/:id/hosts', function(req, res) {
 
-  axios.get(`http://204.236.167.174/listings/${req.params.id}`)
-  .then(data => {
-    getHostData(data.data.hostId, (data) => {
-      res.status(200).json(data[0]);
-      next();
+  getHostData('1000', (data) => {
+        res.status(200).json(data[0]);
+        res.end();
 
-    })
+      })
 
-  })
-  .catch(err =>{
-    console.error('Failed', err);
-  });
+  // axios.get(`http://204.236.167.174/listings/${req.params.id}`)
+  // .then(data => {
+  //   getHostData(data.data.hostId, (data) => {
+  //     res.status(200).json(data[0]);
+  //     next();
+
+  //   })
+
+  // })
+  // .catch(err =>{
+  //   console.error('Failed', err);
+  // });
 });
 
 app.post('/hosts', function(req, res) {
+  //console.log(req.url);
 
   createNewHost(req.body, (data) => {
     res.status(200).json(data);
+    res.end();
   })
 });
 
@@ -90,6 +105,7 @@ app.put('/hosts/:id', function(req, res) {
 
   updateHost(req.params.id, req.body, (data) => {
     res.status(200).json(data);
+    res,end();
   });
 
 
@@ -100,6 +116,7 @@ app.delete('/hosts/:id', function(req, res) {
   deleteHost(req.params.id, () => {
     console.log('suxxessfully deleted')
     res.sendStatus(200);
+    res.end();
   });
 
 });
@@ -109,6 +126,7 @@ app.get('/assets/:id', (req, res) => {
 });
 
 app.get('/:id', (req, res) => {
+  //res.header({'Content-Encoding': 'br'});
   res.sendFile(path.join(__dirname + '/../public/index.html'));
 });
 

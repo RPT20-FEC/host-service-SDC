@@ -20,10 +20,10 @@ const Host = (props) => (
         {(props.host.coHost && props.host.coHost.length>0) &&
           <CohostList id={props.host.id} propertyId={props.propertyId} />
         }
-        {props.host.duringStay &&
+        {props.host.duringstay &&
         <div className='headline-during-stay'>
           <div className= {styles.bold} >During your stay</div>
-          <Description classname='during-stay' less={props.host.duringStayLess} more={props.host.duringStay}/>
+          <Description classname='during-stay' less={props.host.duringStayLess} more={props.host.duringstay}/>
         </div>
         }
         {props.host.superhost &&
@@ -35,11 +35,11 @@ const Host = (props) => (
       </div>
       <div className={styles.info}>
         <div className='lang'>Language: {props.host.languages}</div>
-        <div className='resp-rate'>Response rate: {props.host.responseRate}%</div>
-        <div className='resp-time'>Response time: {props.host.responseTime}</div>
-        <SendMessage name={props.host.name} responseTime={props.host.responseTime} />
+        <div className='resp-rate'>Response rate: {props.host.responserate}%</div>
+        <div className='resp-time'>Response time: {props.host.responsetime}</div>
+        <SendMessage name={props.host.name} responsetime={props.host.responsetime} />
         <div className={hostStyles.note}>
-          <img className={hostStyles.noteIcon} src='https://host-service.s3-us-west-1.amazonaws.com/paymentNote.png' />
+          <img rel="preconnect" className={hostStyles.noteIcon} src='https://host-service.s3-us-west-1.amazonaws.com/paymentNote.png' />
           <p className={hostStyles.noteWarning}>To protect your payment, never transfer money or communicate outside of the Airbnb website or app. </p>
         </div>
       </div>

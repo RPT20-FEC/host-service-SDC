@@ -6,15 +6,15 @@ import styles from '../styles/commonStyles.module.css';
 const Stats = (props) => (
   <div className={styles.statsContainer}>
     <div className={styles.statsData}>
-      <img className="star" src='https://host-service.s3-us-west-1.amazonaws.com/star.png' />
+      <img rel="preconnect" className="star" src='https://host-service.s3-us-west-1.amazonaws.com/star.png' />
       {props.reviews} Reviews </div>
     {props.verified &&
     <div className={styles.statsData}>
-      <img className="check" src='https://host-service.s3-us-west-1.amazonaws.com/verified.png' />Verified </div>
+      <img rel="preconnect" className="check" src='https://host-service.s3-us-west-1.amazonaws.com/verified.png' />Verified </div>
       }
     {props.superhost &&
       <div className={styles.statsData}>
-        <img className='superhost-stats' src='https://host-service.s3-us-west-1.amazonaws.com/statsHostIcon.png' /> Superhost </div>
+        <img rel="preconnect" className='superhost-stats' src='https://host-service.s3-us-west-1.amazonaws.com/statsHostIcon.png' /> Superhost </div>
       }
   </div>
 )

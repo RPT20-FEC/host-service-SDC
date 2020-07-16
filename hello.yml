@@ -1,0 +1,113 @@
+# config:
+#   target: "http://127.0.0.1:3001"
+#   phases:
+#     - duration: 10
+#       arrivalRate: 2
+#       rampTo: 20
+#       name: "Warm up the application to 100 requests"
+#     - duration: 30
+#       arrivalRate: 15
+#       rampTo: 60
+#       name: "Warm up the application to 1000"
+#     - duration: 30
+#       arrivalRate: 60
+#       name: "Sustained max load"
+#   variables:
+#     id:
+#       - ["9858901", "9950100", "9989501", "9999423"]
+#       - ["9999910", "9858901", "9990100", "9989901", "9999923", "9999990", "9858991", "9950190"]
+#       - ["9989591", "9999493", "9999999", "9858991", "9950909","9989598", "9999829", "9999980"]
+#       - ["9858981", "9959800", "9989791", "9999873", "9999880"]
+
+# scenarios:
+#   - flow:
+#     - loop:
+#       - get:
+#           url: "/hosts/{{ $loopElement }}"
+#           over: id
+#       count: 15
+
+config:
+  target: "http://127.0.0.1:3001"
+  phases:
+    - duration: 10
+      arrivalRate: 10
+      rampTo: 100
+      name: "Warm up the application to 100 requests"
+    - duration: 30
+      arrivalRate: 100
+      rampTo: 1000
+      name: "Warm up the application to 1000"
+    - duration: 30
+      arrivalRate: 1000
+      name: "Sustained max load"
+  payload:
+      # path is relative to the location of the test script
+    path: "hosts.csv"
+    fields:
+      - "name"
+      - "description"
+      - "duringstay"
+      - "reviews"
+      - "verified"
+      - "superhost"
+      - "joined_at"
+      - "languages"
+      - "responsetime"
+      - "responserate"
+      - "location"
+      - "avatarurl"
+  variables:
+    id:
+      - "9858901"
+      - "9950100"
+      - "9989501"
+      - "9999423"
+      - "9999910"
+      - "9858901"
+      - "9990100"
+      - "9989901"
+      - "9999923"
+      - "9999990"
+      - "9858991"
+      - "9950190"
+      - "9989591"
+      - "9999493"
+      - "9999999"
+      - "9858991"
+      - "9950909"
+      - "9989598"
+      - "9999829"
+      - "9999980"
+      - "9858981"
+      - "9959800"
+      - "9989791"
+      - "9999873"
+      - "9999880"
+scenarios:
+  - flow:
+    - get:
+        url: "/hosts/{{ id }}"
+    weight: 9
+  - flow:
+    - post:
+        url: "/hosts"
+        json:
+          name: "by load test {{ name }}"
+          description: "{{ description }}"
+          duringstay: "{{ duringstay }}"
+          reviews: "{{ reviews }}"
+          verified: "{{ verified }}"
+          superhost: "{{ superhost }}"
+          joined_at: "{{ joined_at }}"
+          languages: "{{ languages }}"
+          responsetime: "{{ responsetime }}"
+          responserate: "{{ responserate }}"
+          location: "{{ location }}"
+          avatarurl: "{{ avatarurl }}"
+      weight: 1
+
+
+
+
+

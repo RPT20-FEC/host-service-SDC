@@ -1,5 +1,5 @@
 
-CREATE DATABASE hostSDC;
+-- CREATE DATABASE hostSDC;
 
 CREATE TABLE hosts (
   id SERIAL,

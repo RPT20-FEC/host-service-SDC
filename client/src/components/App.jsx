@@ -16,7 +16,6 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      redirect: null,
       host: null
     }
 
@@ -31,10 +30,12 @@ class App extends React.Component {
 
   fetchData(id) {
     ajax({
-      url: 'http://54.215.154.186/listings/' + id + '/hosts',
+      url: 'http://localhost:3001/listings/' + id + '/hosts',
       type: 'GET',
       success: (data) => {
         this.renderShortDesc(data);
+        console.log('this is a stare', this.state);
+        console.log(data)
       },
       error: function(err) {
         console.log("Failed to get the data from the server ", err);
@@ -49,6 +50,7 @@ class App extends React.Component {
     if (data.duringStay && data.duringStay.length > 180) {
       data.duringStayLess = data.duringStay.substr(0, 180);
     }
+
     this.setState({
       host: data
     });

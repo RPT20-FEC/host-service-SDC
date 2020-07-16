@@ -18,9 +18,9 @@ const Profile = (props) => (
     <div className={styles.top}>
       <div className={styles.avatar} >
         <Link to={`${props.propertyId}/host-details/${props.host.id}`} >
-          <img className={styles.image} src={props.host.avatarUrl} />
+          <img className={styles.image} src={props.host.avatarurl} />
           {props.host.superhost &&
-          <img className={styles.icon} src='https://host-service.s3-us-west-1.amazonaws.com/icon.png' />
+          <img link rel="preconnect" className={styles.icon} src='https://host-service.s3-us-west-1.amazonaws.com/icon.png' />
           }
         </Link>
       </div>
