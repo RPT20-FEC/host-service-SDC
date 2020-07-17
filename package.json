@@ -11,7 +11,7 @@
     "start": "nodemon server/start.js",
     "dev:react": "webpack -d --watch --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js",
-    "db:setup": "node --max-old-space-size=16192 database/seed.js",
+    "seed": "node --max-old-space-size=16192 database/seed.js",
     "test": "jest",
     "test:styles-update": "jest  --updateSnapshot",
     "test:watch": "jest --watch",

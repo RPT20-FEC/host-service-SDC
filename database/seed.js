@@ -1,4 +1,9 @@
 //const db  = require('./index.js');
+
+var myArgs = process.argv.slice(2);
+var start = parseInt(myArgs[0]) || 0;
+console.log(start, " this is initial id!")
+var end = start + 500000;
 const pool = require('./pool.js');
 const {seedDatabase} = require('./postgres.js');
 var moment = require('moment');
@@ -26,16 +31,21 @@ var randomResponse = ['within an hour', 'within a day', 'within a minute', 'with
 
 const insertSampleData = () => {
 
-  var file = 0;
+  // var file = 0;
 
-  let hostId = 0;
-  for (var x = 0; x < 7; x++) {
+ // let hostId = 0;
+
+  //for (var x = start; x < 1; x++) {
     var writer = csvWriter();
-    writer.pipe(fs.createWriteStream(`data${x}.csv`));
-    for (var i = 0; i < 1500000; i++) {
+    writer.pipe(fs.createWriteStream("data.csv"));
+
+    
+    for (var i = start; i < end; i++) {
+
+      
 
       writer.write({
-        id: hostId++,
+        id: i,
         name: lorem.generateWords(2),
         description: lorem.generateSentences(5),
         duringstay: lorem.generateSentences(3),
@@ -50,7 +60,7 @@ const insertSampleData = () => {
         location: randomLocation[Math.round(Math.random() * 8)],
         avatarurl: `https://host-service.s3-us-west-1.amazonaws.com/${Math.round(Math.random() * 30)}.jpg`
       })
-
+console.log(i);
 
     }
     writer.end(err => {
@@ -58,16 +68,19 @@ const insertSampleData = () => {
       if (err) {
         console.log(err);
       } else {
-        pool.query(`\COPY hosts FROM '/Users/Anush/HR/sdc/data${file++}.csv' DELIMITER ',' CSV HEADER;`, (error, data) => {
+
+        pool.query(`\COPY hosts FROM '/home/ubuntu/host-service-SDC/data.csv' DELIMITER ',' CSV HEADER;`, (error, data) => {
           if (error) {
             return console.error(error);
           }
-          console.log('successfully seeded the db')
+          console.log('successfully seeded the db');
+
+         // fs.unlinkSync('/home/ubuntu/host-service-SDC/data${start}.csv');
         });
         }
     });
 
-  }
+  
 };
 
 const generateCSV = () => {
@@ -105,8 +118,8 @@ const generateCSV = () => {
 
 };
 
-generateCSV();
-//insertSampleData();
+//generateCSV();
+insertSampleData();
 
 
 
