@@ -71,24 +71,23 @@ app.get('/hosts/:id/co-hosts', (req, res) => {
 
 app.get('/listings/:id/hosts', function(req, res) {
 
-  getHostData('1000', (data) => {
-        res.status(200).json(data[0]);
-        res.end();
+  // getHostData('1000', (data) => {
+  //       res.status(200).json(data[0]);
+  //       res.end();
 
-      })
+  //     })
+  axios.get(`http://13.52.235.18/listings/${req.params.id}`)
+  .then(data => {
+    getHostData(data.data.host_id, (data) => {
+      res.status(200).json(data[0]);
+      res.end();
 
-  // axios.get(`http://204.236.167.174/listings/${req.params.id}`)
-  // .then(data => {
-  //   getHostData(data.data.hostId, (data) => {
-  //     res.status(200).json(data[0]);
-  //     next();
+    })
 
-  //   })
-
-  // })
-  // .catch(err =>{
-  //   console.error('Failed', err);
-  // });
+  })
+  .catch(err =>{
+    console.error('Failed', err);
+  });
 });
 
 app.post('/hosts', function(req, res) {
