@@ -18,7 +18,7 @@ const HostPage = (props) => {
 
     console.log('here is host id from params, ', id)
     $.ajax({
-      url: 'http://localhost:3001/hosts/' + id,
+      url: 'http://54.153.60.26:3001/hosts/' + id,
       type: 'GET',
       success: (data) => {
         setHost(data[0]);
