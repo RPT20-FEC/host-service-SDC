@@ -24,12 +24,12 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 
 app.use(express.static(
-  __dirname + '/../client/dist',
-  {
-      setHeaders: (res) => {
-          res.setHeader('Content-Encoding', 'br');
-      }
-  }
+  __dirname + '/../client/dist'
+ // {
+   //   setHeaders: (res) => {
+     //     res.setHeader('Content-Encoding', 'br');
+     // }
+ // }
 ))
 
 app.use((req, res, next) => {
