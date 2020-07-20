@@ -28,35 +28,35 @@
 #       count: 15
 
 config:
-  target: "http://127.0.0.1:3001"
+  target: "http://18.144.22.13"
   phases:
     - duration: 10
       arrivalRate: 10
       rampTo: 100
       name: "Warm up the application to 100 requests"
+    # - duration: 30
+    #   arrivalRate: 100
+    #   rampTo: 1000
+    #   name: "Warm up the application to 1000"
     - duration: 30
       arrivalRate: 100
-      rampTo: 1000
-      name: "Warm up the application to 1000"
-    - duration: 30
-      arrivalRate: 1000
       name: "Sustained max load"
-  payload:
-      # path is relative to the location of the test script
-    path: "hosts.csv"
-    fields:
-      - "name"
-      - "description"
-      - "duringstay"
-      - "reviews"
-      - "verified"
-      - "superhost"
-      - "joined_at"
-      - "languages"
-      - "responsetime"
-      - "responserate"
-      - "location"
-      - "avatarurl"
+  # payload:
+  #     # path is relative to the location of the test script
+  #   path: "hosts.csv"
+  #   fields:
+  #     - "name"
+  #     - "description"
+  #     - "duringstay"
+  #     - "reviews"
+  #     - "verified"
+  #     - "superhost"
+  #     - "joined_at"
+  #     - "languages"
+  #     - "responsetime"
+  #     - "responserate"
+  #     - "location"
+  #     - "avatarurl"
   variables:
     id:
       - "9858901"
@@ -88,24 +88,24 @@ scenarios:
   - flow:
     - get:
         url: "/hosts/{{ id }}"
-    weight: 9
-  - flow:
-    - post:
-        url: "/hosts"
-        json:
-          name: "by load test {{ name }}"
-          description: "{{ description }}"
-          duringstay: "{{ duringstay }}"
-          reviews: "{{ reviews }}"
-          verified: "{{ verified }}"
-          superhost: "{{ superhost }}"
-          joined_at: "{{ joined_at }}"
-          languages: "{{ languages }}"
-          responsetime: "{{ responsetime }}"
-          responserate: "{{ responserate }}"
-          location: "{{ location }}"
-          avatarurl: "{{ avatarurl }}"
-      weight: 1
+  #   weight: 9
+  # - flow:
+  #   - post:
+  #       url: "/hosts"
+  #       json:
+  #         name: "by load test {{ name }}"
+  #         description: "{{ description }}"
+  #         duringstay: "{{ duringstay }}"
+  #         reviews: "{{ reviews }}"
+  #         verified: "{{ verified }}"
+  #         superhost: "{{ superhost }}"
+  #         joined_at: "{{ joined_at }}"
+  #         languages: "{{ languages }}"
+  #         responsetime: "{{ responsetime }}"
+  #         responserate: "{{ responserate }}"
+  #         location: "{{ location }}"
+  #         avatarurl: "{{ avatarurl }}"
+  #     weight: 1
 
 
 
