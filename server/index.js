@@ -120,6 +120,11 @@ app.delete('/hosts/:id', function(req, res) {
 
 });
 
+
+app.get('/loaderio-5f546121555cd3d7fab044311486f315.txt', (req, res) => {
+  res.sendFile(path.join(__dirname + '/../public/loaderio-5f546121555cd3d7fab044311486f315.txt'));
+});
+
 app.get('/assets/:id', (req, res) => {
   res.sendFile(path.join(__dirname + '/../public/assets/' + req.params.id));
 });
