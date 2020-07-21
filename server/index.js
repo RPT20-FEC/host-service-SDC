@@ -55,8 +55,7 @@ function cache(req, res, next) {
 //returns host data based on the id
 app.get('/hosts/:id', cache, function(req, res) {
 
-  console.log('fetching data ...')
-  //console.log(req.url);
+  //console.log('fetching data ...')
   getHostData(req.params.id, (data) => {
 
     client.setex(req.params.id, 60, JSON.stringify(data))
