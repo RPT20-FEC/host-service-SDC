@@ -28,18 +28,18 @@
 #       count: 15
 
 config:
-  target: "http://18.144.22.13"
+  target: "http://localhost:3001"
   phases:
     - duration: 10
       arrivalRate: 10
       rampTo: 100
       name: "Warm up the application to 100 requests"
-    # - duration: 30
-    #   arrivalRate: 100
-    #   rampTo: 1000
-    #   name: "Warm up the application to 1000"
     - duration: 30
       arrivalRate: 100
+      rampTo: 1000
+      name: "Warm up the application to 1000"
+    - duration: 30
+      arrivalRate: 1000
       name: "Sustained max load"
   # payload:
   #     # path is relative to the location of the test script
