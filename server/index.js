@@ -6,7 +6,7 @@ const path = require('path');
 const axios = require('axios');
 
 var redis = require('redis');
-var client = redis.createClient();
+var client = redis.createClient({no_ready_check: true});
 
 const {
   getCoHostData,
@@ -40,29 +40,25 @@ app.use((req, res, next) => {
   next();
 });
 
-function cache(req, res, next) {
-  client.get(req.params.id, (err, data) => {
-    if (err) console.error(err);
-    if (data !== null) {
-      res.status(200).json(data);
-    } else {
-      next();
-    }
-  })
-}
-
 
 //returns host data based on the id
-app.get('/hosts/:id', cache, function(req, res) {
-
+app.get('/hosts/:id', function(req, res) {
+  var id = req.params.id;
   //console.log('fetching data ...')
-  getHostData(req.params.id, (data) => {
-
-    client.setex(req.params.id, 60, JSON.stringify(data))
-    res.status(200).json(data);
-    res.end();
-
+  client.get(id, (err, data) => {
+    if (err) console.error(err);
+    if (data !== null) {
+      res.status(200).json(JSON.parse(data));
+      res.end();
+    } else {
+      getHostData(id, (data) => {
+        client.setex(id, 60, JSON.stringify(data))
+        res.status(200).json(data);
+        res.end();
+      })
+    }
   })
+
 });
 
 //returns all host data
