@@ -43,22 +43,15 @@ app.use((req, res, next) => {
 
 //returns host data based on the id
 app.get('/hosts/:id', function(req, res) {
-  var id = req.params.id;
-  //console.log('fetching data ...')
-  client.get(id, (err, data) => {
-    if (err) console.error(err);
-    if (data !== null) {
-      res.status(200).json(JSON.parse(data));
-      res.end();
-    } else {
-      getHostData(id, (data) => {
-        client.setex(id, 60, JSON.stringify(data))
-        res.status(200).json(data);
-        res.end();
-      })
-    }
-  })
 
+  //console.log('fetching data ...')
+  getHostData(req.params.id, (data) => {
+
+    client.setex(req.params.id, 60, JSON.stringify(data))
+    res.status(200).json(data);
+    res.end();
+
+  })
 });
 
 //returns all host data
