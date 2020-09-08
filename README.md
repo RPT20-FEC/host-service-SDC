@@ -1,6 +1,6 @@
 # Host service
 
-> Scaled back-end microservice performance of host service module. This service clones Airbnb host module for property/ listing page.
+> Scaled back-end microservice performance for host service module. This service clones Airbnb host module for property/ listing page.
 
 ## Related Projects
 
@@ -21,7 +21,7 @@
 An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
 
 - Node 12.16.2
-- PstgreSQL
+- PostgreSQL
 
 ## Installing Dependencies
 
