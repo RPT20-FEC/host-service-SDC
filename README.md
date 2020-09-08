@@ -1,6 +1,6 @@
 # Host service
 
-> This service clones Airbnb host module for property/ listing page. It is a part of Front-end capstone project at Hack Reactor.
+> Scaled back-end microservice performance of host service module. This service clones Airbnb host module for property/ listing page.
 
 ## Related Projects
 
@@ -11,11 +11,37 @@
 
 ## Table of Contents
 
-1. [Usage](#Usage)
 1. [Requirements](#requirements)
 1. [Development](#development)
+1. [API](#API)
 
-## Usage
+
+## Requirements
+
+An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
+
+- Node 12.16.2
+- PstgreSQL
+
+## Installing Dependencies
+
+From within the root directory
+
+```sh
+npm install
+```
+
+## Development
+
+For development mode this project uses nodemon and webpack watching for changes
+
+```sh
+npm run react:dev
+npm start
+npm run test 
+```
+
+## API
 
 > API endpoints
 
@@ -28,9 +54,6 @@ GET  /hosts/:id
 GET  /listings/:id/hosts
 - returns host data based on the listing id
 
-GET  /hosts
-- returns all records
-
 GET  /hosts/:id/co-hosts
 - returns cohost data for cohost component if a host has cohosts
 
@@ -42,23 +65,4 @@ PUT  /hosts/:id
 
 DELETE  /hosts/:id
 - deletes the record from database that belongs to the host with matching host id
-
-
-## Requirements
-
-An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
-
-- Node 12.16.2
-- etc
-
-## Development
-
-### Installing Dependencies
-
-From within the root directory:
-
-```sh
-npm install -g webpack
-npm install
-```
 
